@@ -1,7 +1,7 @@
 package com.beemonitor.beemonitorback.repository;
 
-import com.beemonitor.beemonitorback.model.Person;
 import org.springframework.stereotype.Repository;
+import com.beemonitor.beemonitorback.model.Person;
 import org.springframework.data.repository.CrudRepository;
 
 @Repository
