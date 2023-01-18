@@ -30,7 +30,7 @@ public class PersonService {
 
     /**
      * Read - Get all persons
-     * @return An Iterable object of persons fulfilled
+     * @return An Iterable object of persons
      */
     public Iterable<Person> getPersons() {
         return personRepository.findAll();
