@@ -1,18 +1,26 @@
 package com.beemonitor.beemonitorback.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "person")
 public class Person {
 
@@ -44,5 +52,14 @@ public class Person {
     @Column
     private Boolean isActive;
 
+
+    /**
+     * person is the Apiary class logical property that reflects the relationship between Person and Apiary
+     */
+    @OneToMany(mappedBy = "person")
+    // @JsonIgnore
+    @JsonBackReference
+    // @JsonManagedReference
+    private Set<Apiary> apiaries;
 
 }
