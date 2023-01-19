@@ -5,17 +5,28 @@ import java.util.Optional;
 import com.beemonitor.beemonitorback.model.Apiary;
 import com.beemonitor.beemonitorback.repository.ApiaryRepository;
 
+import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.Data;
+import org.springframework.util.Assert;
+
+import javax.inject.Inject;
 
 @Data
 @Service
 public class ApiaryService {
 
-    @Autowired
-    private ApiaryRepository apiaryRepository;
+    // @Autowired
+    private final ApiaryRepository apiaryRepository;
+
+    @Inject
+    public ApiaryService(ApiaryRepository apiaryRepository) {
+        Assert.notNull(apiaryRepository, "ApiaryRepository must not be null!");
+        this.apiaryRepository = apiaryRepository;
+    }
+
 
     /**
      * Read - Get all apiaries
