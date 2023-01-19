@@ -9,7 +9,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +24,10 @@ public class Apiary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
+    @Column
+    private String name;
 
     @Column
     private float latitude;
@@ -43,9 +50,13 @@ public class Apiary {
      */
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
-    // @JsonIgnore
-    // @JsonBackReference
-    @JsonManagedReference
+    @JsonBackReference
+    // @JsonManagedReference
     private Person person;
+
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "apiary", orphanRemoval = true)
+    private Collection<Hive> hives = new ArrayList<>();
 
 }
