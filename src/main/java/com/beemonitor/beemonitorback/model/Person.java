@@ -1,8 +1,12 @@
 package com.beemonitor.beemonitorback.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.util.Collection;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
@@ -14,8 +18,6 @@ import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
-
-import java.util.Set;
 
 @Getter
 @Setter
@@ -58,8 +60,8 @@ public class Person {
      */
     @OneToMany(mappedBy = "person")
     // @JsonIgnore
-    @JsonBackReference
-    // @JsonManagedReference
-    private Set<Apiary> apiaries;
+    // @JsonBackReference
+    @JsonManagedReference
+    private Collection<Apiary> apiaries;
 
 }
