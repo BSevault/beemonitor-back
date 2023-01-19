@@ -1,5 +1,9 @@
 -- MySQL Workbench Forward Engineering
 
+-- ---------------------------------------------------------
+-- Script for dummy data generation at https://filldb.info/
+-- ---------------------------------------------------------
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -8,7 +12,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Table `person`
 -- -----------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `person` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
@@ -51,7 +54,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `hive`
 -- -----------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `hive` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
@@ -66,14 +68,20 @@ CREATE TABLE IF NOT EXISTS `hive` (
   `super_count` INT NULL,
   `comment` TEXT NULL,
   `is_active` TINYINT NULL,
-  PRIMARY KEY (`id`))
+  `apiary_id` INT UNSIGNED,
+  PRIMARY KEY (`id`),
+  INDEX `fk_hive_apiary1_idx` (`apiary_id` ASC) VISIBLE,
+  CONSTRAINT `fk_hive_apiary1`
+    FOREIGN KEY (`apiary_id`)
+    REFERENCES `apiary` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `sensor`
 -- -----------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `sensor` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `ref` VARCHAR(45) NOT NULL,
@@ -100,7 +108,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `measurement`
 -- -----------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `measurement` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `value` DECIMAL(7,4) NOT NULL,
@@ -109,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `measurement` (
   `unit` VARCHAR(45) NOT NULL,
   `id_sensor` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_measurement_sensor1_idx` (`id_sensor` ASC) VISIBLE,
+  INDEX `fk_measurement_sensor1_idx` (`id_sensor` ASC) INVISIBLE,
   CONSTRAINT `fk_measurement_sensor1`
     FOREIGN KEY (`id_sensor`)
     REFERENCES `sensor` (`id`)
@@ -119,34 +126,8 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `apiary_has_hive`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS `apiary_has_hive` (
-  `id_apiary` INT UNSIGNED NOT NULL,
-  `id_hive` INT UNSIGNED NOT NULL,
-  `add_date` DATE NOT NULL,
-  `remove_date` DATE NULL,
-  PRIMARY KEY (`id_apiary`, `id_hive`),
-  INDEX `fk_apiary_has_hive_hive1_idx` (`id_hive` ASC) VISIBLE,
-  INDEX `fk_apiary_has_hive_apiary1_idx` (`id_apiary` ASC) VISIBLE,
-  CONSTRAINT `fk_apiary_has_hive_apiary1`
-    FOREIGN KEY (`id_apiary`)
-    REFERENCES `apiary` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_apiary_has_hive_hive1`
-    FOREIGN KEY (`id_hive`)
-    REFERENCES `hive` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `alert_config`
 -- -----------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `alert_config` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `alert_type` VARCHAR(45) NOT NULL,
