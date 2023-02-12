@@ -22,11 +22,11 @@ public class PersonUnitTests {
     private MockMvc mockMvc;
 
     @MockBean
-    private PersonService personService;
+    private PersonController personController;
 
     @Test
     public void testGetPersons() throws Exception {
-        mockMvc.perform(get("/persons"))
+        mockMvc.perform(get("/persons/all"))
                 .andExpect(status().isOk());
     }
 

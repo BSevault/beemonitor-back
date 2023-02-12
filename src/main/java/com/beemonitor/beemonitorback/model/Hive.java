@@ -1,6 +1,7 @@
 package com.beemonitor.beemonitorback.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -59,8 +62,13 @@ public class Hive {
 
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "apiary_id")
     private Apiary apiary;
+
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "idHive")
+    private Set<Sensor> sensors = new LinkedHashSet<>();
 
 }

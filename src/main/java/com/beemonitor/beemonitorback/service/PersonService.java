@@ -1,6 +1,6 @@
 package com.beemonitor.beemonitorback.service;
 
-import java.util.Optional;
+import java.util.List;
 
 import com.beemonitor.beemonitorback.model.Person;
 import com.beemonitor.beemonitorback.repository.PersonRepository;
@@ -8,32 +8,38 @@ import com.beemonitor.beemonitorback.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.Data;
 
-
-
-@Data
+// @Data
 @Service
 public class PersonService {
 
+    // @Autowired
+    private final PersonRepository personRepository;
+
+
     @Autowired
-    private PersonRepository personRepository;
+    public PersonService(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
+
 
     /**
      * Read - Get a person by the id
      * @param id The id of the person
-     * @return The person which matches the id
+     * @return The person which matches the id or null if id not found
      */
-    public Optional<Person> getPersonById(final Long id) {
-        return personRepository.findById(id);
+    public Person findPersonById(final Long id) {
+        return personRepository.findById(id).orElse(null);
     }
 
     /**
      * Read - Get all persons
      * @return An Iterable object of persons
      */
-    public Iterable<Person> getPersons() {
+    public List<Person> findPersons() {
         return personRepository.findAll();
     }
+
+
 
 }

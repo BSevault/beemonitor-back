@@ -14,16 +14,15 @@ import org.springframework.util.Assert;
 
 import javax.inject.Inject;
 
-@Data
+// @Data
 @Service
 public class ApiaryService {
 
     // @Autowired
     private final ApiaryRepository apiaryRepository;
 
-    @Inject
+    @Autowired
     public ApiaryService(ApiaryRepository apiaryRepository) {
-        Assert.notNull(apiaryRepository, "ApiaryRepository must not be null!");
         this.apiaryRepository = apiaryRepository;
     }
 

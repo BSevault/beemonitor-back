@@ -9,10 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Setter
@@ -57,6 +54,15 @@ public class Apiary {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "apiary", orphanRemoval = true)
-    private Collection<Hive> hives = new ArrayList<>();
+    private Set<Hive> hives = new LinkedHashSet<>();
+
+    @Lob
+    @Column(name = "comment")
+    private String comment;
+
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "idApiary")
+    private Set<Sensor> sensors = new LinkedHashSet<>();
 
 }

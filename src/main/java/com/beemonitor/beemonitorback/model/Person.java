@@ -1,7 +1,6 @@
 package com.beemonitor.beemonitorback.model;
 
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -34,7 +33,7 @@ public class Person {
     private String firstName;
 
     @Column(name = "last_name")
-    private String last_name;
+    private String lastName;
 
     @Column
     private String email;
@@ -48,10 +47,10 @@ public class Person {
     @Column
     private String adress;
 
-    @Column
+    @Column(name = "is_admin")
     private Boolean isAdmin;
 
-    @Column
+    @Column(name = "is_active")
     private Boolean isActive;
 
 
@@ -61,7 +60,7 @@ public class Person {
     @OneToMany(mappedBy = "person")
     // @JsonIgnore
     // @JsonBackReference
-    @JsonManagedReference
-    private Collection<Apiary> apiaries;
+    // @JsonManagedReference
+    private List<Apiary> apiaries = new ArrayList<>();
 
 }
