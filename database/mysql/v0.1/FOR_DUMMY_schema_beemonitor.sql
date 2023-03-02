@@ -10,10 +10,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 
 
 -- -----------------------------------------------------
--- Table `person`
+-- Table `personEntity`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `person` (
+CREATE TABLE IF NOT EXISTS `personEntity` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `apiary` (
   INDEX `fk_apiary_person1_idx` (`person_id` ASC) VISIBLE,
   CONSTRAINT `fk_apiary_person1`
     FOREIGN KEY (`person_id`)
-    REFERENCES `person` (`id`)
+    REFERENCES `personEntity` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

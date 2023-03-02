@@ -1,7 +1,6 @@
 package com.beemonitor.beemonitorback.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -49,7 +48,7 @@ public class Apiary {
     @JoinColumn(name = "person_id", nullable = false)
     @JsonBackReference
     // @JsonManagedReference
-    private Person person;
+    private PersonEntity personEntity;
 
 
     @JsonManagedReference

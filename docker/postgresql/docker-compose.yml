@@ -1,0 +1,35 @@
+#
+# Will start all docker constructions with PostgreSQL
+#
+# 
+# Password and network ports are handled in .env file
+#
+version: "3.9"
+services:
+  postgresqldb:
+    image: postgres:14.3
+    restart: unless-stopped
+    env_file: ./.env
+    container_name: postgres_db_banque
+    environment:
+      - POSTGRES_USER=$DB_USER
+      - POSTGRES_PASSWORD=$DB_ROOT_PASSWORD
+      - POSTGRES_DB=$DB_DATABASE
+      # Very bad, for dev only
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - $DB_LOCAL_PORT:$DB_DOCKER_PORT
+    volumes:
+      # !Keep order of declaration, will init the data base with the dump at img creation
+      - vol_postgresql_banque:/var/lib/postgresql/data
+      - ./banque_postgresql_docker.sql:/docker-entrypoint-initdb.d/setup.sql
+
+volumes:
+  vol_postgresql_banque:
+
+
+#
+# Run all  : docker-compose up
+# Stop all : docker-compose down
+# Stop all and delte all img : docker-compose down --rmi all
+#

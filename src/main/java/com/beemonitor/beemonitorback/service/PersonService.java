@@ -2,7 +2,7 @@ package com.beemonitor.beemonitorback.service;
 
 import java.util.List;
 
-import com.beemonitor.beemonitorback.model.Person;
+import com.beemonitor.beemonitorback.model.PersonEntity;
 import com.beemonitor.beemonitorback.repository.PersonRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class PersonService {
      * @param id The id of the person
      * @return The person which matches the id or null if id not found
      */
-    public Person findPersonById(final Long id) {
+    public PersonEntity findPersonById(final Long id) {
         return personRepository.findById(id).orElse(null);
     }
 
@@ -36,7 +36,7 @@ public class PersonService {
      * Read - Get all persons
      * @return An Iterable object of persons
      */
-    public List<Person> findPersons() {
+    public List<PersonEntity> findPersons() {
         return personRepository.findAll();
     }
 

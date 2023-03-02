@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 
 @WebMvcTest(controllers = PersonController.class)
-public class PersonUnitTests {
+public class PersonEntityUnitTests {
 
     @Autowired
     private MockMvc mockMvc;

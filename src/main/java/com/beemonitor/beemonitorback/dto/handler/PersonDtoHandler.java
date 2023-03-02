@@ -1,36 +1,35 @@
 package com.beemonitor.beemonitorback.dto.handler;
 
 import com.beemonitor.beemonitorback.dto.out.PersonDtoOut;
-import com.beemonitor.beemonitorback.model.Apiary;
-import com.beemonitor.beemonitorback.model.Person;
+import com.beemonitor.beemonitorback.model.PersonEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDtoHandler {
 
-    public static PersonDtoOut dtoFromEntity(Person person) {
-        if (person == null) {
+    public static PersonDtoOut dtoFromEntity(PersonEntity personEntity) {
+        if (personEntity == null) {
             return null;
         } else {
             var result = new PersonDtoOut();
-            result.setId(person.getId());
-            result.setFirstName(person.getFirstName());
-            result.setLastName(person.getLastName());
-            result.setEmail(person.getEmail());
-            result.setPhone(person.getPhone());
-            result.setAdress(person.getAdress());
-            result.setIsAdmin(person.getIsAdmin());
-            result.setIsActive(person.getIsActive());
+            result.setId(personEntity.getId());
+            result.setFirstName(personEntity.getFirstName());
+            result.setLastName(personEntity.getLastName());
+            result.setEmail(personEntity.getEmail());
+            result.setPhone(personEntity.getPhone());
+            result.setAdress(personEntity.getAdress());
+            result.setIsAdmin(personEntity.getIsAdmin());
+            result.setIsActive(personEntity.getIsActive());
 
-            if (person.getApiaries() == null) {
+            if (personEntity.getApiaries() == null) {
                 result.setApiariesId(null);
             } else {
                 List<Long> apiariesId = new ArrayList<>();
                 //  for(Apiary apiary : person.getApiaries()) {
                 //     apiariesId.add(apiary.getId());
                 // }
-                person.getApiaries()
+                personEntity.getApiaries()
                         .forEach(e -> apiariesId.add(e.getId()));
                 result.setApiariesId(apiariesId);
 
@@ -40,13 +39,13 @@ public class PersonDtoHandler {
         }
     }
 
-    public static List<PersonDtoOut> dtoListFromEntity(List<Person> personList) {
+    public static List<PersonDtoOut> dtoListFromEntity(List<PersonEntity> personEntityList) {
 
-        if (personList == null || personList.isEmpty()) {
+        if (personEntityList == null || personEntityList.isEmpty()) {
             return null;
         }
         var result = new ArrayList<PersonDtoOut>();
-        personList.forEach(e -> result.add(dtoFromEntity(e)));
+        personEntityList.forEach(e -> result.add(dtoFromEntity(e)));
         return result;
 
     }

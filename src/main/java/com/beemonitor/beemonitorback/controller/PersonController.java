@@ -2,11 +2,10 @@ package com.beemonitor.beemonitorback.controller;
 
 import com.beemonitor.beemonitorback.dto.handler.PersonDtoHandler;
 import com.beemonitor.beemonitorback.dto.out.PersonDtoOut;
-import com.beemonitor.beemonitorback.model.Person;
+import com.beemonitor.beemonitorback.model.PersonEntity;
 import com.beemonitor.beemonitorback.service.PersonService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @Log4j2
 @RestController
@@ -43,8 +41,8 @@ public class PersonController {
     // @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_XML_VALUE})
     @GetMapping("/{id}")
     public ResponseEntity<PersonDtoOut> getPerson(@PathVariable("id") final Long id) {
-        Person person = personService.findPersonById(id);
-        PersonDtoOut personDtoOut = PersonDtoHandler.dtoFromEntity(person);
+        PersonEntity personEntity = personService.findPersonById(id);
+        PersonDtoOut personDtoOut = PersonDtoHandler.dtoFromEntity(personEntity);
         return ResponseEntity.ok(personDtoOut);
     }
 
@@ -55,8 +53,8 @@ public class PersonController {
     @GetMapping("/all")
     public ResponseEntity<List<PersonDtoOut>> getPersons() {
         log.info("-->getPersons");
-        List<Person> personList = personService.findPersons();
-        List<PersonDtoOut> personDtoOutList = PersonDtoHandler.dtoListFromEntity(personList);
+        List<PersonEntity> personEntityList = personService.findPersons();
+        List<PersonDtoOut> personDtoOutList = PersonDtoHandler.dtoListFromEntity(personEntityList);
         log.info("<--getPersons, size: {}", personDtoOutList.size());
         return ResponseEntity.ok(personDtoOutList);
     }
