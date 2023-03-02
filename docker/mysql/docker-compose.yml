@@ -1,0 +1,35 @@
+#
+# Will start all docker constructions with MySQL
+#
+# Password and network ports are handled in .env file
+#
+version: "3.9"
+services:
+  mysqldb:
+    image: mysql:8.0.29
+    restart: unless-stopped
+    env_file: ./.env
+    container_name: mysql_db_beemonitor
+    environment:
+      - MYSQL_ROOT_PASSWORD=$DB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$DB_DATABASE
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - $DB_LOCAL_PORT:$DB_DOCKER_PORT
+    volumes:
+      # !Keep order of declaration, will init the data base with the dump at img creation
+      - vol_mysql_beemonitor:/var/lib/mysql
+      - ../../database/mysql/v0.2/a_schema_beemonitor_v0.2.sql:/docker-entrypoint-initdb.d/a_setup.sql
+      - ../../database/mysql/v0.2/b_beemonitor_v0.2_dummy_data.sql:/docker-entrypoint-initdb.d/b_data.sql
+
+volumes:
+  vol_mysql_beemonitor:
+
+
+#
+# Run all  : docker-compose up
+# Stop all : docker-compose down
+# Stop all and delte all img : docker-compose down --rmi all
+#
+# After start, in order to see if database is ok
+# In docker cli (for mysql) :  mysql -h 127.0.0.1 -u root -P 3306 -p

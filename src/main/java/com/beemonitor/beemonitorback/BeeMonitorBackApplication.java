@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BeemonitorBackApplication {
+public class BeeMonitorBackApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BeemonitorBackApplication.class, args);
+        SpringApplication.run(BeeMonitorBackApplication.class, args);
     }
 
 }

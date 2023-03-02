@@ -1,26 +1,19 @@
 -- MySQL Workbench Forward Engineering
 
+-- ---------------------------------------------------------
+-- Script for dummy data generation at https://filldb.info/
+-- ---------------------------------------------------------
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- -----------------------------------------------------
--- Schema beemonitor
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `beemonitor` ;
 
 -- -----------------------------------------------------
--- Schema beemonitor
+-- Table `personEntity`
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `beemonitor` DEFAULT CHARACTER SET utf8 ;
-USE `beemonitor` ;
 
--- -----------------------------------------------------
--- Table `beemonitor`.`person`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `beemonitor`.`person` ;
-
-CREATE TABLE IF NOT EXISTS `beemonitor`.`person` (
+CREATE TABLE IF NOT EXISTS `personEntity` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
@@ -36,11 +29,10 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `beemonitor`.`apiary`
+-- Table `apiary`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `beemonitor`.`apiary` ;
 
-CREATE TABLE IF NOT EXISTS `beemonitor`.`apiary` (
+CREATE TABLE IF NOT EXISTS `apiary` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `latitude` DECIMAL(6,4) NOT NULL,
@@ -54,18 +46,17 @@ CREATE TABLE IF NOT EXISTS `beemonitor`.`apiary` (
   INDEX `fk_apiary_person1_idx` (`person_id` ASC) VISIBLE,
   CONSTRAINT `fk_apiary_person1`
     FOREIGN KEY (`person_id`)
-    REFERENCES `beemonitor`.`person` (`id`)
+    REFERENCES `personEntity` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `beemonitor`.`hive`
+-- Table `hive`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `beemonitor`.`hive` ;
 
-CREATE TABLE IF NOT EXISTS `beemonitor`.`hive` (
+CREATE TABLE IF NOT EXISTS `hive` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `latitude` DECIMAL(8,6) NOT NULL,
@@ -84,11 +75,10 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `beemonitor`.`sensor`
+-- Table `sensor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `beemonitor`.`sensor` ;
 
-CREATE TABLE IF NOT EXISTS `beemonitor`.`sensor` (
+CREATE TABLE IF NOT EXISTS `sensor` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `ref` VARCHAR(45) NOT NULL,
   `type` VARCHAR(45) NOT NULL,
@@ -100,23 +90,22 @@ CREATE TABLE IF NOT EXISTS `beemonitor`.`sensor` (
   INDEX `fk_sensor_apiary1_idx` (`id_apiary` ASC) VISIBLE,
   CONSTRAINT `fk_sensor_hive1`
     FOREIGN KEY (`id_hive`)
-    REFERENCES `beemonitor`.`hive` (`id`)
+    REFERENCES `hive` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_sensor_apiary1`
     FOREIGN KEY (`id_apiary`)
-    REFERENCES `beemonitor`.`apiary` (`id`)
+    REFERENCES `apiary` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `beemonitor`.`measurement`
+-- Table `measurement`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `beemonitor`.`measurement` ;
 
-CREATE TABLE IF NOT EXISTS `beemonitor`.`measurement` (
+CREATE TABLE IF NOT EXISTS `measurement` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `value` DECIMAL(7,4) NOT NULL,
   `measurement_date` DATE NOT NULL,
@@ -127,18 +116,17 @@ CREATE TABLE IF NOT EXISTS `beemonitor`.`measurement` (
   INDEX `fk_measurement_sensor1_idx` (`id_sensor` ASC) VISIBLE,
   CONSTRAINT `fk_measurement_sensor1`
     FOREIGN KEY (`id_sensor`)
-    REFERENCES `beemonitor`.`sensor` (`id`)
+    REFERENCES `sensor` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `beemonitor`.`apiary_has_hive`
+-- Table `apiary_has_hive`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `beemonitor`.`apiary_has_hive` ;
 
-CREATE TABLE IF NOT EXISTS `beemonitor`.`apiary_has_hive` (
+CREATE TABLE IF NOT EXISTS `apiary_has_hive` (
   `id_apiary` INT UNSIGNED NOT NULL,
   `id_hive` INT UNSIGNED NOT NULL,
   `add_date` DATE NOT NULL,
@@ -148,23 +136,22 @@ CREATE TABLE IF NOT EXISTS `beemonitor`.`apiary_has_hive` (
   INDEX `fk_apiary_has_hive_apiary1_idx` (`id_apiary` ASC) VISIBLE,
   CONSTRAINT `fk_apiary_has_hive_apiary1`
     FOREIGN KEY (`id_apiary`)
-    REFERENCES `beemonitor`.`apiary` (`id`)
+    REFERENCES `apiary` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_apiary_has_hive_hive1`
     FOREIGN KEY (`id_hive`)
-    REFERENCES `beemonitor`.`hive` (`id`)
+    REFERENCES `hive` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `beemonitor`.`alert_config`
+-- Table `alert_config`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `beemonitor`.`alert_config` ;
 
-CREATE TABLE IF NOT EXISTS `beemonitor`.`alert_config` (
+CREATE TABLE IF NOT EXISTS `alert_config` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `alert_type` VARCHAR(45) NOT NULL,
   `upper_limit` DECIMAL(5,2) NULL,
@@ -177,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `beemonitor`.`alert_config` (
   INDEX `fk_alert_config_sensor1_idx` (`id_sensor` ASC) VISIBLE,
   CONSTRAINT `fk_alert_config_sensor`
     FOREIGN KEY (`id_sensor`)
-    REFERENCES `beemonitor`.`sensor` (`id`)
+    REFERENCES `sensor` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
