@@ -19,8 +19,8 @@ services:
     volumes:
       # !Keep order of declaration, will init the data base with the dump at img creation
       - vol_mysql_beemonitor:/var/lib/mysql
-      - ../../database/mysql/v0.2/a_schema_beemonitor_v0.2.sql:/docker-entrypoint-initdb.d/a_setup.sql
-      - ../../database/mysql/v0.2/b_beemonitor_v0.2_dummy_data.sql:/docker-entrypoint-initdb.d/b_data.sql
+      - ../../database/mysql/v0.2/schema_beemonitor_v0.2.sql:/docker-entrypoint-initdb.d/a_setup.sql
+      - ../../database/mysql/v0.2/beemonitor_v0.2_dummy_data.sql:/docker-entrypoint-initdb.d/b_data.sql
 
 volumes:
   vol_mysql_beemonitor:
