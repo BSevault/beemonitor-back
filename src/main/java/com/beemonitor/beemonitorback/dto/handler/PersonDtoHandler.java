@@ -26,7 +26,7 @@ public class PersonDtoHandler {
             if (personEntity.getApiaries() == null) {
                 result.setApiariesId(null);
             } else {
-                List<Long> apiariesId = new ArrayList<>();
+                List<Integer> apiariesId = new ArrayList<>();
                 //  for(Apiary apiary : person.getApiaries()) {
                 //     apiariesId.add(apiary.getId());
                 // }
@@ -51,8 +51,8 @@ public class PersonDtoHandler {
 
     }
 
-    // Point d'entrée des données
     // TODO gérer la validation des données
+    // Point d'entrée des données
     public static PersonEntity entityFromDTO(PersonDTOIn pDTO) {
         if (pDTO == null) {
             return null;
