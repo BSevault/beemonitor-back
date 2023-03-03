@@ -1,6 +1,5 @@
 package com.beemonitor.beemonitorback.dto.out;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
