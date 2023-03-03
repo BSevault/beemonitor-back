@@ -1,5 +1,7 @@
 package com.beemonitor.beemonitorback;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,13 +15,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class BeeMonitorBackApplication {
 
+    private static final Logger LOG = LogManager.getLogger();
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2Y);
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(BeeMonitorBackApplication.class, args);
+        var app = new SpringApplication(BeeMonitorBackApplication.class);
+        app.setLogStartupInfo(false);
+        app.run(args);
+        LOG.debug("=== Server is up ===");
     }
 
 }
