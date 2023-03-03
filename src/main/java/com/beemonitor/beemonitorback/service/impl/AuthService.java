@@ -24,9 +24,10 @@ public class AuthService implements IAuthService {
         var entity = personRepository.findByEmail(pEmail);
         if(entity.isEmpty())
             return null;
-        if(passwordEncoder.matches(pPassword, entity.get().getPwd())) {
+
+        if(passwordEncoder.matches(pPassword, entity.get().getPwd()))
             return entity.get();
-        }
+
         return null;
     }
 }
