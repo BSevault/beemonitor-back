@@ -1,26 +1,24 @@
 package com.beemonitor.beemonitorback.controller;
 
 import com.beemonitor.beemonitorback.dto.handler.PersonDtoHandler;
+import com.beemonitor.beemonitorback.dto.in.PersonDTOIn;
 import com.beemonitor.beemonitorback.dto.out.PersonDtoOut;
 import com.beemonitor.beemonitorback.model.PersonEntity;
 import com.beemonitor.beemonitorback.service.impl.PersonService;
-import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Log4j2
 @RestController
-
 // Prefixes all request url
 @RequestMapping("/persons")
 public class PersonController {
 
+    private static final Logger LOG = LogManager.getLogger();
 
     private final PersonService personService;
 
@@ -41,8 +39,11 @@ public class PersonController {
     // @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_XML_VALUE})
     @GetMapping("/{id}")
     public ResponseEntity<PersonDtoOut> getPerson(@PathVariable("id") final Integer id) {
+        PersonController.LOG.debug("--> getPerson");
         PersonEntity personEntity = personService.findById(id);
         PersonDtoOut personDtoOut = PersonDtoHandler.dtoFromEntity(personEntity);
+        PersonController.LOG.debug("result: {}", personDtoOut.toString());
+        PersonController.LOG.debug("<-- getPerson");
         return ResponseEntity.ok(personDtoOut);
     }
 
@@ -52,11 +53,27 @@ public class PersonController {
      */
     @GetMapping("/all")
     public ResponseEntity<List<PersonDtoOut>> getPersons() {
-        log.info("-->getPersons");
+        PersonController.LOG.debug("--> getPersons");
         List<PersonEntity> personEntityList = personService.findAll();
         List<PersonDtoOut> personDtoOutList = PersonDtoHandler.dtoListFromEntity(personEntityList);
-        log.info("<--getPersons, size: {}", personDtoOutList.size());
+        PersonController.LOG.debug("<-- getPersons, result size: {}", personDtoOutList.size());
         return ResponseEntity.ok(personDtoOutList);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<PersonEntity> addPerson(@RequestBody PersonDTOIn pBody) {
+        PersonController.LOG.debug("--> addPersons");
+        var dto = new PersonDTOIn();
+        dto.setFirstName(pBody.getFirstName());
+        dto.setLastName(pBody.getLastName());
+        dto.setEmail(pBody.getEmail());
+        dto.setPwd(pBody.getPwd());
+        dto.setAdress(pBody.getAdress());
+        dto.setPhone(pBody.getPhone());
+        var result = personService.insert(dto);
+        PersonController.LOG.debug("result {}", result.toString());
+        PersonController.LOG.debug("<-- addPersons");
+        return ResponseEntity.ok(result);
     }
 
 }
