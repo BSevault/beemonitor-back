@@ -31,6 +31,20 @@ public class PersonDtoOut {
 
     private Boolean isActive;
 
-    private List<Long> apiariesId;
+    private List<Integer> apiariesId;
 
+    @Override
+    public String toString() {
+        return "PersonDtoOut{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", adress='" + adress + '\'' +
+                ", isAdmin=" + isAdmin +
+                ", isActive=" + isActive +
+                ", apiariesId=" + apiariesId +
+                '}';
+    }
 }
