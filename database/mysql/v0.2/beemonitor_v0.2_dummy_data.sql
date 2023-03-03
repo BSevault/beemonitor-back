@@ -1,12 +1,12 @@
 USE `beemonitor`;
 
 -- #
--- # TABLE STRUCTURE FOR: personEntity
+-- # TABLE STRUCTURE FOR: person
 -- #
 
--- DROP TABLE IF EXISTS `personEntity`;
+-- DROP TABLE IF EXISTS `person`;
 
--- CREATE TABLE `personEntity` (
+-- CREATE TABLE `person` (
 --   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 --   `first_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
 --   `last_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -20,16 +20,16 @@ USE `beemonitor`;
 --   UNIQUE KEY `email_UNIQUE` (`email`)
 -- ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `personEntity` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (1, 'Bernier', 'Austin', 'zkohler@example.org', 'test', '1-010-967-1977x214', '707 Walsh Circle\nNorth Itzel, MI 84887-7702', 1, 1);
-INSERT INTO `personEntity` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (2, 'Von', 'Alberta', 'zstiedemann@example.net', 'test', '(130)634-3721', '68399 Streich Wells Apt. 249\nNorth Marjolaine, WY 25649-8087', 1, 1);
-INSERT INTO `personEntity` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (3, 'Welch', 'Brannon', 'stehr.idell@example.com', 'test', '434.556.2967x472', '074 Hyatt Loop Suite 106\nHellerbury, WI 47669', 1, 1);
-INSERT INTO `personEntity` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (4, 'McLaughlin', 'Krista', 'torphy.pete@example.net', 'test', '306.402.8551x0014', '61625 Harmony Shores Apt. 789\nNorth Simeonstad, CT 83818-8942', 1, 1);
-INSERT INTO `personEntity` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (5, 'Borer', 'Asha', 'hand.luis@example.com', 'test', '+68(9)7949538146', '8710 Hane Bypass\nRozellaport, CO 13247-2783', 1, 1);
-INSERT INTO `personEntity` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (6, 'Russel', 'Wilton', 'evelyn44@example.net', 'test', '(516)382-6850x11330', '8662 Maureen Lock\nSouth Nyasiashire, MN 20362-1925', 0, 1);
-INSERT INTO `personEntity` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (7, 'Stiedemann', 'Marian', 'jordan53@example.org', 'test', '096.370.3345x2953', '217 Leopold Lane Suite 217\nNorth Emiliafort, ME 65387-8750', 1, 1);
-INSERT INTO `personEntity` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (8, 'Harvey', 'Herta', 'ifranecki@example.org', 'test', '891.122.6914', '8966 Rohan Mountains Suite 619\nBatzport, AZ 87072-8969', 1, 1);
-INSERT INTO `personEntity` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (9, 'Hagenes', 'Dessie', 'clint.mayert@example.net', 'test', '09540570165', '3472 Jarod Motorway Suite 580\nNew Victoria, WV 65068-4959', 1, 1);
-INSERT INTO `personEntity` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (10, 'Waelchi', 'Shemar', 'wisozk.stacey@example.net', 'test', '1-157-345-2456', '43160 Labadie Throughway Suite 125\nWebermouth, ME 02362', 0, 1);
+INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (1, 'Bernier', 'Austin', 'zkohler@example.org', 'test', '1-010-967-1977x214', '707 Walsh Circle\nNorth Itzel, MI 84887-7702', 1, 1);
+INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (2, 'Von', 'Alberta', 'zstiedemann@example.net', 'test', '(130)634-3721', '68399 Streich Wells Apt. 249\nNorth Marjolaine, WY 25649-8087', 1, 1);
+INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (3, 'Welch', 'Brannon', 'stehr.idell@example.com', 'test', '434.556.2967x472', '074 Hyatt Loop Suite 106\nHellerbury, WI 47669', 1, 1);
+INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (4, 'McLaughlin', 'Krista', 'torphy.pete@example.net', 'test', '306.402.8551x0014', '61625 Harmony Shores Apt. 789\nNorth Simeonstad, CT 83818-8942', 1, 1);
+INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (5, 'Borer', 'Asha', 'hand.luis@example.com', 'test', '+68(9)7949538146', '8710 Hane Bypass\nRozellaport, CO 13247-2783', 1, 1);
+INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (6, 'Russel', 'Wilton', 'evelyn44@example.net', 'test', '(516)382-6850x11330', '8662 Maureen Lock\nSouth Nyasiashire, MN 20362-1925', 0, 1);
+INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (7, 'Stiedemann', 'Marian', 'jordan53@example.org', 'test', '096.370.3345x2953', '217 Leopold Lane Suite 217\nNorth Emiliafort, ME 65387-8750', 1, 1);
+INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (8, 'Harvey', 'Herta', 'ifranecki@example.org', 'test', '891.122.6914', '8966 Rohan Mountains Suite 619\nBatzport, AZ 87072-8969', 1, 1);
+INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (9, 'Hagenes', 'Dessie', 'clint.mayert@example.net', 'test', '09540570165', '3472 Jarod Motorway Suite 580\nNew Victoria, WV 65068-4959', 1, 1);
+INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (10, 'Waelchi', 'Shemar', 'wisozk.stacey@example.net', 'test', '1-157-345-2456', '43160 Labadie Throughway Suite 125\nWebermouth, ME 02362', 0, 1);
 
 -- #
 -- # TABLE STRUCTURE FOR: apiary
@@ -49,7 +49,7 @@ INSERT INTO `personEntity` (`id`, `first_name`, `last_name`, `email`, `pwd`, `ph
 --   `person_id` int(10) unsigned NOT NULL,
 --   PRIMARY KEY (`id`),
 --   KEY `fk_apiary_person1_idx` (`person_id`),
---   CONSTRAINT `fk_apiary_person1` FOREIGN KEY (`person_id`) REFERENCES `personEntity` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+--   CONSTRAINT `fk_apiary_person1` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 -- ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `apiary` (`id`, `name`, `latitude`, `longitude`, `creation_date`, `end_date`, `comment`, `is_active`, `person_id`) VALUES (1, 'perspiciatis', '1.2853', '-40.5184', '1979-01-15', '1985-05-09', 'Ipsum aut quidem ut rem est itaque sunt. Cum quia magnam dolorem rerum quia eius expedita. Dolores voluptatem dolorum cum minima aut voluptatem voluptate. Quibusdam quae vel sint labore. Eius dolore nulla dolores et reiciendis mollitia debitis.', 1, 1);

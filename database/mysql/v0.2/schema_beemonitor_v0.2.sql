@@ -16,11 +16,11 @@ CREATE SCHEMA IF NOT EXISTS `beemonitor` DEFAULT CHARACTER SET utf8 ;
 USE `beemonitor` ;
 
 -- -----------------------------------------------------
--- Table `beemonitor`.`personEntity`
+-- Table `beemonitor`.`person`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `beemonitor`.`personEntity` ;
+DROP TABLE IF EXISTS `beemonitor`.`person` ;
 
-CREATE TABLE IF NOT EXISTS `beemonitor`.`personEntity` (
+CREATE TABLE IF NOT EXISTS `beemonitor`.`person` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `beemonitor`.`apiary` (
   INDEX `fk_apiary_person1_idx` (`person_id` ASC) VISIBLE,
   CONSTRAINT `fk_apiary_person1`
     FOREIGN KEY (`person_id`)
-    REFERENCES `beemonitor`.`personEntity` (`id`)
+    REFERENCES `beemonitor`.`person` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
