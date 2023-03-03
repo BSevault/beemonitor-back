@@ -1,4 +1,4 @@
-package com.beemonitor.beemonitorback.service;
+package com.beemonitor.beemonitorback.service.impl;
 
 import java.util.Optional;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import lombok.Data;
 import org.springframework.util.Assert;
 
-import javax.inject.Inject;
+
 
 // @Data
 @Service

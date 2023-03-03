@@ -2,7 +2,7 @@ package com.beemonitor.beemonitorback.controller;
 
 
 import com.beemonitor.beemonitorback.model.Hive;
-import com.beemonitor.beemonitorback.service.HiveService;
+import com.beemonitor.beemonitorback.service.impl.HiveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

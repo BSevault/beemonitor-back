@@ -6,11 +6,12 @@ import lombok.Setter;
 
 import java.util.List;
 
+// TODO virer Lombok
 @Getter
 @Setter
 public class PersonDtoOut {
 
-    private Long id;
+    private Integer id;
 
     private String firstName;
 

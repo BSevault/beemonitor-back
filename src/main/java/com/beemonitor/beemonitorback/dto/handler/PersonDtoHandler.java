@@ -1,5 +1,6 @@
 package com.beemonitor.beemonitorback.dto.handler;
 
+import com.beemonitor.beemonitorback.dto.in.PersonDTOIn;
 import com.beemonitor.beemonitorback.dto.out.PersonDtoOut;
 import com.beemonitor.beemonitorback.model.PersonEntity;
 
@@ -19,8 +20,8 @@ public class PersonDtoHandler {
             result.setEmail(personEntity.getEmail());
             result.setPhone(personEntity.getPhone());
             result.setAdress(personEntity.getAdress());
-            result.setIsAdmin(personEntity.getIsAdmin());
-            result.setIsActive(personEntity.getIsActive());
+            result.setIsAdmin(personEntity.isAdmin());
+            result.setIsActive(personEntity.isActive());
 
             if (personEntity.getApiaries() == null) {
                 result.setApiariesId(null);
@@ -48,6 +49,26 @@ public class PersonDtoHandler {
         personEntityList.forEach(e -> result.add(dtoFromEntity(e)));
         return result;
 
+    }
+
+    // Point d'entrée des données
+    // TODO gérer la validation des données
+    public static PersonEntity entityFromDTO(PersonDTOIn pDTO) {
+        if (pDTO == null) {
+            return null;
+        } else {
+            var result = new PersonEntity();
+            result.setFirstName(pDTO.getFirstName());
+            result.setLastName(pDTO.getLastName());
+            result.setEmail(pDTO.getEmail());
+            result.setPwd(pDTO.getPwd());
+            result.setAdress(pDTO.getAdress());
+            result.setPhone(pDTO.getPhone());
+            result.setAdmin(false);
+            result.setActive(true);
+
+            return result;
+        }
     }
 
 }

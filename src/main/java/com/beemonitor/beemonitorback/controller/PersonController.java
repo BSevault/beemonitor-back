@@ -3,7 +3,7 @@ package com.beemonitor.beemonitorback.controller;
 import com.beemonitor.beemonitorback.dto.handler.PersonDtoHandler;
 import com.beemonitor.beemonitorback.dto.out.PersonDtoOut;
 import com.beemonitor.beemonitorback.model.PersonEntity;
-import com.beemonitor.beemonitorback.service.PersonService;
+import com.beemonitor.beemonitorback.service.impl.PersonService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +40,8 @@ public class PersonController {
     // To return xml :
     // @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_XML_VALUE})
     @GetMapping("/{id}")
-    public ResponseEntity<PersonDtoOut> getPerson(@PathVariable("id") final Long id) {
-        PersonEntity personEntity = personService.findPersonById(id);
+    public ResponseEntity<PersonDtoOut> getPerson(@PathVariable("id") final Integer id) {
+        PersonEntity personEntity = personService.findById(id);
         PersonDtoOut personDtoOut = PersonDtoHandler.dtoFromEntity(personEntity);
         return ResponseEntity.ok(personDtoOut);
     }
@@ -53,7 +53,7 @@ public class PersonController {
     @GetMapping("/all")
     public ResponseEntity<List<PersonDtoOut>> getPersons() {
         log.info("-->getPersons");
-        List<PersonEntity> personEntityList = personService.findPersons();
+        List<PersonEntity> personEntityList = personService.findAll();
         List<PersonDtoOut> personDtoOutList = PersonDtoHandler.dtoListFromEntity(personEntityList);
         log.info("<--getPersons, size: {}", personDtoOutList.size());
         return ResponseEntity.ok(personDtoOutList);

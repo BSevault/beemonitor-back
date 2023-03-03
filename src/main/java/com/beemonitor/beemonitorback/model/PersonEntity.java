@@ -2,41 +2,32 @@ package com.beemonitor.beemonitorback.model;
 
 import java.util.*;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 
-@Getter
-@Setter
+
 @Entity
-@NoArgsConstructor
 @Table(name = "person")
-public class PersonEntity {
+public class PersonEntity extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private static final long serialVersionUID = 1L;
 
-    @Column(name = "first_name")
+
+    @Column(name = "first_name", length = 45, nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", length = 45, nullable = false)
     private String lastName;
 
-    @Column
+    @Column(name = "email", length = 45, nullable = false)
     private String email;
 
-    @Column
+    @Column(name = "pwd", length = 512, nullable = false)
     private String pwd;
 
-    @Column
+    @Column(name = "phone", length = 45)
     private String phone;
 
-    @Column
+    @Column(name = "adress", length = 1000)
     private String adress;
 
     @Column(name = "is_admin")
@@ -47,12 +38,96 @@ public class PersonEntity {
 
 
     /**
-     * person is the Apiary class logical property that reflects the relationship between Person and Apiary
+     * Jointure avec la classe Apiary
      */
-    @OneToMany(mappedBy = "person")
-    // @JsonIgnore
-    // @JsonBackReference
-    // @JsonManagedReference
-    private List<Apiary> apiaries = new ArrayList<>();
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
+    private Set<Apiary> apiaries;
 
+    /**
+     * Constructeur de l'objet. <br>
+     *
+     * Par defaut l'id du compte sera null
+     */
+    public PersonEntity() {super();}
+
+    /**
+     * Constructeur de l'objet. <br>
+     *
+     * @param pId un id
+     */
+    public PersonEntity(Integer pId) {
+        super(pId);
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public Boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
+
+    public Boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public Set<Apiary> getApiaries() {
+        return apiaries;
+    }
+
+    public void setApiaries(Set<Apiary> apiaries) {
+        this.apiaries = apiaries;
+    }
 }

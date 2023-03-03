@@ -48,7 +48,7 @@ public class Apiary {
     @JoinColumn(name = "person_id", nullable = false)
     @JsonBackReference
     // @JsonManagedReference
-    private PersonEntity personEntity;
+    private PersonEntity person;
 
 
     @JsonManagedReference
