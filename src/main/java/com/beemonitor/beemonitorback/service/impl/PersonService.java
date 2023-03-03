@@ -35,7 +35,8 @@ public class PersonService {
      */
     @Transactional(readOnly = true)
     public PersonEntity findById(final Integer id) {
-        return personRepository.findById(id).orElse(null);
+        return personRepository.findById(id)
+                .orElse(null);
     }
 
     /**
