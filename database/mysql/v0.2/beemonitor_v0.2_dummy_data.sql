@@ -30,6 +30,7 @@ INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, 
 INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (8, 'Harvey', 'Herta', 'ifranecki@example.org', 'test', '891.122.6914', '8966 Rohan Mountains Suite 619\nBatzport, AZ 87072-8969', 1, 1);
 INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (9, 'Hagenes', 'Dessie', 'clint.mayert@example.net', 'test', '09540570165', '3472 Jarod Motorway Suite 580\nNew Victoria, WV 65068-4959', 1, 1);
 INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `pwd`, `phone`, `adress`, `is_admin`, `is_active`) VALUES (10, 'Waelchi', 'Shemar', 'wisozk.stacey@example.net', 'test', '1-157-345-2456', '43160 Labadie Throughway Suite 125\nWebermouth, ME 02362', 0, 1);
+INSERT INTO `person` (id, first_name, last_name, email, pwd, phone, adress, is_admin, is_active) VALUES(11, 'Bob', 'Marley', 'bob@gmail.com', '$2y$10$B4RV/3h6MTlURhL3rdSHw.qHpz/FByVHFvoVGaiFRndtNA8i89c4u', NULL, NULL, 0, 1);
 
 -- #
 -- # TABLE STRUCTURE FOR: apiary

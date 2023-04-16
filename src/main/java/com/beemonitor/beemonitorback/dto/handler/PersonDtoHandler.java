@@ -1,13 +1,13 @@
 package com.beemonitor.beemonitorback.dto.handler;
 
-import com.beemonitor.beemonitorback.dto.in.PersonDTOIn;
+import com.beemonitor.beemonitorback.dto.in.PersonDtoIn;
 import com.beemonitor.beemonitorback.dto.out.PersonDtoOut;
 import com.beemonitor.beemonitorback.model.PersonEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonDtoHandler {
+public class PersonDtoHandler extends AbstractDtoHandler{
 
     public static PersonDtoOut dtoFromEntity(PersonEntity personEntity) {
         if (personEntity == null) {
@@ -51,19 +51,19 @@ public class PersonDtoHandler {
 
     }
 
-    // TODO gérer la validation des données
+    // TODO gérer la validation des données : regex email
     // Point d'entrée des données
-    public static PersonEntity entityFromDTO(PersonDTOIn pDTO) {
+    public static PersonEntity entityFromDTO(PersonDtoIn pDTO) {
         if (pDTO == null) {
             return null;
         } else {
             var result = new PersonEntity();
-            result.setFirstName(pDTO.getFirstName());
-            result.setLastName(pDTO.getLastName());
-            result.setEmail(pDTO.getEmail());
-            result.setPwd(pDTO.getPwd());
-            result.setAdress(pDTO.getAdress());
-            result.setPhone(pDTO.getPhone());
+            result.setFirstName(checkAndClean(pDTO.getFirstName()));
+            result.setLastName(checkAndClean(pDTO.getLastName()));
+            result.setEmail(checkAndClean(pDTO.getEmail()));
+            result.setPwd(checkAndClean(pDTO.getPwd()));
+            result.setAdress(checkAndClean(pDTO.getAdress()));
+            result.setPhone(checkAndClean(pDTO.getPhone()));
             result.setAdmin(false);
             result.setActive(true);
 

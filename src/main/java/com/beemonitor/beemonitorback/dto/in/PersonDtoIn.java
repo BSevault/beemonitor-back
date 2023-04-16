@@ -1,13 +1,7 @@
 package com.beemonitor.beemonitorback.dto.in;
 
-import com.beemonitor.beemonitorback.model.AbstractEntity;
-import com.beemonitor.beemonitorback.model.Apiary;
-import jakarta.persistence.*;
 
-import java.util.Set;
-
-
-public class PersonDTOIn{
+public class PersonDtoIn {
 
     private String firstName;
 
@@ -27,7 +21,6 @@ public class PersonDTOIn{
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", pwd='" + pwd + '\'' +
                 ", phone='" + phone + '\'' +
                 ", adress='" + adress + '\'' +
                 '}';
