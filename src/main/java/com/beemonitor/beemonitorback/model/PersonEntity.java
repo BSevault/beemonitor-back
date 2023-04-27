@@ -1,6 +1,7 @@
 package com.beemonitor.beemonitorback.model;
 
 import java.io.Serial;
+import java.time.LocalDate;
 import java.util.*;
 
 import jakarta.persistence.*;
@@ -38,6 +39,27 @@ public class PersonEntity extends AbstractEntity {
     @Column(name = "is_active")
     private Boolean isActive;
 
+    @Column(name = "token")
+    private String token;
+
+    @Column(name = "token_exp_date")
+    private LocalDate tokenExpDate;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public LocalDate getTokenExpDate() {
+        return tokenExpDate;
+    }
+
+    public void setTokenExpDate(LocalDate tokenExpDate) {
+        this.tokenExpDate = tokenExpDate;
+    }
 
     /**
      * Jointure avec la classe Apiary
@@ -132,4 +154,5 @@ public class PersonEntity extends AbstractEntity {
     public void setApiaries(Set<Apiary> apiaries) {
         this.apiaries = apiaries;
     }
+
 }

@@ -30,6 +30,8 @@ CREATE TABLE IF NOT EXISTS `beemonitor`.`person` (
   `adress` VARCHAR(1000) NULL,
   `is_admin` TINYINT NULL,
   `is_active` TINYINT NULL,
+  `token` VARCHAR(255) NULL,
+  `token_exp_date` DATE NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB;
