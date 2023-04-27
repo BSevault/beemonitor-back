@@ -25,7 +25,7 @@ class PersonServiceTest {
         PersonDtoIn dto = new PersonDtoIn();
         dto.setFirstName("Bob");
         dto.setLastName("Marley");
-        dto.setEmail("bob@email.com");
+        dto.setEmail("bob@gmail.com");
         dto.setPwd("test");
 
         var entity = personService.insert(dto);

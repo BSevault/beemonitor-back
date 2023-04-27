@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 // @Data
-@Service
+@Service("personService")
 public class PersonService {
 
     private static final Logger LOG = LogManager.getLogger();

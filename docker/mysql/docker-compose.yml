@@ -17,7 +17,7 @@ services:
     ports:
       - $DB_LOCAL_PORT:$DB_DOCKER_PORT
     volumes:
-      # !Keep order of declaration, will init the data base with the dump at img creation
+      # !Keep order of declaration, will init the database with the dump at img creation
       - vol_mysql_beemonitor:/var/lib/mysql
       - ../../database/mysql/v0.2/schema_beemonitor_v0.2.sql:/docker-entrypoint-initdb.d/a_setup.sql
       - ../../database/mysql/v0.2/beemonitor_v0.2_dummy_data.sql:/docker-entrypoint-initdb.d/b_data.sql
@@ -29,7 +29,7 @@ volumes:
 #
 # Run all  : docker-compose up
 # Stop all : docker-compose down
-# Stop all and delte all img : docker-compose down --rmi all
+# Stop all and delete all img : docker-compose down --rmi all
 #
 # After start, in order to see if database is ok
 # In docker cli (for mysql) :  mysql -h 127.0.0.1 -u root -P 3306 -p

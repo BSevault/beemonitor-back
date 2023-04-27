@@ -1,5 +1,6 @@
 package com.beemonitor.beemonitorback.model;
 
+import java.io.Serial;
 import java.util.*;
 
 import jakarta.persistence.*;
@@ -9,6 +10,7 @@ import jakarta.persistence.*;
 @Table(name = "person")
 public class PersonEntity extends AbstractEntity {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
 
