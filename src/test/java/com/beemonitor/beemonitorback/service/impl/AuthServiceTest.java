@@ -21,13 +21,13 @@ class AuthServiceTest {
     @Test
     void authent() {
 
-        var entity = authService.authent("bob@gmail.com", "test");
+        var entity = authService.authent("bob@email.com", "test");
 
         Assertions.assertNotNull(entity, "L'entité est nulle");
 
         Assertions.assertNotNull(entity.getId(), "L' ID de l'entité est nulle");
 
-        Assertions.assertEquals("bob@gmail.com", entity.getEmail(), "Le mail n'est pas celui envoyé");
+        Assertions.assertEquals("bob@email.com", entity.getEmail(), "Le mail n'est pas celui envoyé");
 
     }
 }
