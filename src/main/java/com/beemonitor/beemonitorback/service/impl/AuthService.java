@@ -32,7 +32,7 @@ public class AuthService implements IAuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    //TODO gérer le code http si user inexistant ou désactivé
+    //TODO gérer le code http si user inexistant ou désactivé => redirection
     public PersonEntity authent(String pEmail, String pPassword, String pUserIpAdress) {
         var optEntity = personRepository.findByEmail(pEmail);
         if(optEntity.isEmpty() || !optEntity.get().isActive() )
