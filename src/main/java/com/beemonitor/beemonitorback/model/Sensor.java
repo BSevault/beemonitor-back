@@ -40,7 +40,7 @@ public class Sensor {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "id_apiary")
-    private Apiary idApiary;
+    private ApiaryEntity idApiary;
 
 
     @JsonManagedReference

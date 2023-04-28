@@ -15,7 +15,7 @@ import java.util.*;
 @Entity
 @NoArgsConstructor
 @Table(name = "apiary")
-public class Apiary {
+public class ApiaryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

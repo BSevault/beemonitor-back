@@ -64,7 +64,7 @@ public class Hive {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "apiary_id")
-    private Apiary apiary;
+    private ApiaryEntity apiary;
 
 
     @JsonManagedReference

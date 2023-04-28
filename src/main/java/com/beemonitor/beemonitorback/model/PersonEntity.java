@@ -65,7 +65,7 @@ public class PersonEntity extends AbstractEntity {
      * Jointure avec la classe Apiary
      */
     @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
-    private Set<Apiary> apiaries;
+    private Set<ApiaryEntity> apiaries;
 
     /**
      * Constructeur de l'objet. <br>
@@ -147,11 +147,11 @@ public class PersonEntity extends AbstractEntity {
         isActive = active;
     }
 
-    public Set<Apiary> getApiaries() {
+    public Set<ApiaryEntity> getApiaries() {
         return apiaries;
     }
 
-    public void setApiaries(Set<Apiary> apiaries) {
+    public void setApiaries(Set<ApiaryEntity> apiaries) {
         this.apiaries = apiaries;
     }
 
