@@ -3,13 +3,26 @@ package com.beemonitor.beemonitorback.controller;
 
 import com.beemonitor.beemonitorback.dto.handler.PersonDtoHandler;
 import com.beemonitor.beemonitorback.dto.out.PersonDtoOut;
+import com.beemonitor.beemonitorback.security.LoginRequestBody;
 import com.beemonitor.beemonitorback.service.impl.AuthService;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 public class AuthController {
+
+    private static final Logger LOG = LogManager.getLogger();
 
     private final AuthService authService;
 
@@ -19,10 +32,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<PersonDtoOut> login(@RequestBody String pLogin, String pPassword) {
-        var result = authService.authent(pLogin, pPassword);
+    public ResponseEntity<PersonDtoOut> login(@RequestBody LoginRequestBody body, HttpServletRequest request, HttpServletResponse response) {
+        var userIpAdress = request.getRemoteAddr();
+        var result = authService.authent(body.getLogin(), body.getPassword(), userIpAdress);
+        var token = authService.generateToken(body.getLogin(), userIpAdress);
+        String cookieValue = token + "|" + LocalDate.now();
+        Cookie cookie = new Cookie("token", cookieValue);
+        cookie.setHttpOnly(true);
+
+        response.addCookie(cookie);
+
+        LOG.info("Authentication successful, user: {}, password: nothing to see here.", result.getEmail());
         return ResponseEntity.ok(PersonDtoHandler.dtoFromEntity(result));
 
     }
-
 }

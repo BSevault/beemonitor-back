@@ -10,6 +10,7 @@ import com.beemonitor.beemonitorback.dto.handler.PersonDtoHandler;
 import com.beemonitor.beemonitorback.dto.in.PersonDtoIn;
 import com.beemonitor.beemonitorback.dto.out.PersonDtoOut;
 import com.beemonitor.beemonitorback.model.PersonEntity;
+import com.beemonitor.beemonitorback.service.impl.AuthService;
 import com.beemonitor.beemonitorback.service.impl.PersonService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,10 +30,13 @@ public class PersonController {
 
     private final PersonService personService;
 
+    private final AuthService authService;
+
 
     @Autowired
-    public PersonController(PersonService personService) {
+    public PersonController(PersonService personService, AuthService authService) {
         this.personService = personService;
+        this.authService = authService;
     }
 
     /**
@@ -111,8 +115,13 @@ public class PersonController {
      * @return A ResponseEntity containing the updated PersonDtoOut of the person, or ResponseEntity.notFound() if the person does not exist.
      */
     @PatchMapping("/{id}/update")
-    public ResponseEntity<PersonDtoOut> updatePerson(@PathVariable("id") Integer pId, @RequestBody PersonDtoIn pBody) {
+    public ResponseEntity<PersonDtoOut> updatePerson(@PathVariable("id") Integer pId, @RequestBody PersonDtoIn pBody, @CookieValue(value = "token", defaultValue = "cookieNotFound") String pCookie) {
+
         PersonController.LOG.debug("--> updatePerson");
+
+        if(!authService.verifyToken(pId, pCookie))
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
         var dto = personDTOMapper(pBody);
         var result = personService.update(pId, dto);
 
