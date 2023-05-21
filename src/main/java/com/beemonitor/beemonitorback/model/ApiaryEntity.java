@@ -8,21 +8,18 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.util.*;
 
-@Getter
-@Setter
 @Entity
-@NoArgsConstructor
 @Table(name = "apiary")
-public class ApiaryEntity {
+public class ApiaryEntity extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
 
-    @Column
+    @Column(name = "name")
     private String name;
 
     @Column
@@ -40,28 +37,24 @@ public class ApiaryEntity {
     @Column(name = "is_active")
     private String isActive;
 
-
     /**
      * "person_id" is the foreign key attribute in apiary table
      */
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
-    @JsonBackReference
-    // @JsonManagedReference
     private PersonEntity person;
 
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "apiary", orphanRemoval = true)
-    private Set<Hive> hives = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "apiary", fetch = FetchType.LAZY)
+    private Set<Hive> hives;
 
     @Lob
     @Column(name = "comment")
     private String comment;
 
+    @OneToMany(mappedBy = "idApiary", fetch = FetchType.LAZY)
+    private Set<Sensor> sensors;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "idApiary")
-    private Set<Sensor> sensors = new LinkedHashSet<>();
+    public ApiaryEntity() {super();}
 
+    public ApiaryEntity(Integer pId) {super(pId);}
 }
