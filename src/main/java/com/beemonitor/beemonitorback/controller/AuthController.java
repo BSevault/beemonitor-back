@@ -3,7 +3,6 @@ package com.beemonitor.beemonitorback.controller;
 
 import com.beemonitor.beemonitorback.dto.handler.PersonDtoHandler;
 import com.beemonitor.beemonitorback.dto.out.PersonDtoOut;
-import com.beemonitor.beemonitorback.security.LoginRequestBody;
 import com.beemonitor.beemonitorback.service.impl.AuthService;
 
 import jakarta.servlet.http.Cookie;
@@ -19,31 +18,31 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
-@RestController
+// @RestController
 public class AuthController {
 
     private static final Logger LOG = LogManager.getLogger();
 
-    private final AuthService authService;
-
-    @Autowired
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<PersonDtoOut> login(@RequestBody LoginRequestBody body, HttpServletRequest request, HttpServletResponse response) {
-        var userIpAdress = request.getRemoteAddr();
-        var result = authService.authent(body.getLogin(), body.getPassword(), userIpAdress);
-        var token = authService.generateToken(body.getLogin(), userIpAdress);
-        String cookieValue = token + "|" + LocalDate.now();
-        Cookie cookie = new Cookie("token", cookieValue);
-        cookie.setHttpOnly(true);
-
-        response.addCookie(cookie);
-
-        LOG.info("Authentication successful, user: {}, password: nothing to see here.", result.getEmail());
-        return ResponseEntity.ok(PersonDtoHandler.dtoFromEntity(result));
-
-    }
+    // private final AuthService authService;
+    //
+    // @Autowired
+    // public AuthController(AuthService authService) {
+    //     this.authService = authService;
+    // }
+    //
+    // @PostMapping("/login")
+    // public ResponseEntity<PersonDtoOut> login(@RequestBody LoginRequestBody body, HttpServletRequest request, HttpServletResponse response) {
+    //     var userIpAdress = request.getRemoteAddr();
+    //     var result = authService.authent(body.getLogin(), body.getPassword(), userIpAdress);
+    //     var token = authService.generateToken(body.getLogin(), userIpAdress);
+    //     String cookieValue = token + "|" + LocalDate.now();
+    //     Cookie cookie = new Cookie("token", cookieValue);
+    //     cookie.setHttpOnly(true);
+    //
+    //     response.addCookie(cookie);
+    //
+    //     LOG.info("Authentication successful, user: {}, password: nothing to see here.", result.getEmail());
+    //     return ResponseEntity.ok(PersonDtoHandler.dtoFromEntity(result));
+    //
+    // }
 }

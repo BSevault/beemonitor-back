@@ -46,12 +46,10 @@ public class ApiaryEntity {
      */
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
-    @JsonBackReference
     // @JsonManagedReference
     private PersonEntity person;
 
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "apiary", orphanRemoval = true)
     private Set<Hive> hives = new LinkedHashSet<>();
 
@@ -60,7 +58,6 @@ public class ApiaryEntity {
     private String comment;
 
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "idApiary")
     private Set<Sensor> sensors = new LinkedHashSet<>();
 

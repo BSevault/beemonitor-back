@@ -1,6 +1,5 @@
 package com.beemonitor.beemonitorback;
 
-import com.beemonitor.beemonitorback.security.CustomUserDetailsService;
 import com.beemonitor.beemonitorback.service.impl.PersonService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,9 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-// TODO enlever "exclude = {SecurityAutoConfiguration.class}" lors de la mise en place de spring security
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-// @SpringBootApplication
+
+@SpringBootApplication
 public class BeeMonitorBackApplication {
 
     private static final Logger LOG = LogManager.getLogger();

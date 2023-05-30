@@ -21,7 +21,7 @@ class AuthServiceTest {
     @Test
     void authent() {
 
-        var entity = authService.authent("bob@email.com", "test", "0:0:0:0:0:0:0:1");
+        var entity = authService.authent("bob@email.com", "test");
 
         Assertions.assertNotNull(entity, "L'entité est nulle");
 

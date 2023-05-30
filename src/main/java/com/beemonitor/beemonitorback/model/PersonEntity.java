@@ -64,7 +64,7 @@ public class PersonEntity extends AbstractEntity {
     /**
      * Jointure avec la classe Apiary
      */
-    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private Set<ApiaryEntity> apiaries;
 
     /**
