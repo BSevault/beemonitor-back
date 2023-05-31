@@ -62,11 +62,13 @@ public class PersonService {
     /**
      * Adds a new person.
      * @param pDTO The PersonDtoIn carrying the new person's info.
-     * @return The PersonEntity object of the new person.
+     * @return The PersonEntity object of the new person, null if email already exists
      */
     @Transactional(rollbackFor = Exception.class)
     public PersonEntity insert(PersonDtoIn pDTO) {
         LOG.debug("--> insert");
+        if (personRepository.findByEmail(pDTO.getEmail()).isPresent())
+            return null;
         var entity = PersonDtoHandler.entityFromDTO(pDTO);
         entity.setPwd(passwordEncoder.encode(entity.getPwd()));
         LOG.debug("return: {}", entity.toString());

@@ -110,6 +110,7 @@ public class SpringSecurityConfiguration {
                         "/swagger*/**", //
                         "/webjars/**", //
                         "/forgotpassword", //
+                        "/persons/add", //
                         "license.txt").permitAll().anyRequest().authenticated()).headers().frameOptions().disable().and()
                 .addFilterBefore(new JwtAuthenticationFilter(authenticationManager, this.env),
                         UsernamePasswordAuthenticationFilter.class)
