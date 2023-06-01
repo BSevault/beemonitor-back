@@ -18,20 +18,21 @@ public class ApiaryEntity extends AbstractEntity {
     @Serial
     private static final long serialVersionUID = 1L;
 
-
-    @Column(name = "name")
+    @Column(name = "name", length = 45)
     private String name;
 
-    @Column
+    @Column(name = "latitude", length = 6, precision = 4, nullable = false)
     private float latitude;
 
-    @Column
+    @Column(name = "longitude", length = 7, precision = 4, nullable = false)
     private float longitude;
 
-    @Column(name = "creation_date")
+    @Column(name = "creation_date",nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date creationDate;
 
     @Column(name = "end_date")
+    @Temporal(TemporalType.DATE)
     private Date endDate;
 
     @Column(name = "is_active")
@@ -42,7 +43,6 @@ public class ApiaryEntity extends AbstractEntity {
      */
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
-
     private PersonEntity person;
 
     @OneToMany(mappedBy = "apiary", fetch = FetchType.LAZY)

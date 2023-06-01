@@ -1,5 +1,7 @@
 package com.beemonitor.beemonitorback.dto.in;
 
+import com.beemonitor.beemonitorback.dto.handler.AbstractDtoHandler;
+
 public class LoginDtoIn {
 
     private String login;
@@ -14,9 +16,8 @@ public class LoginDtoIn {
         return password;
     }
 
-    public void setLogin(String login) {
-        if (login != null)
-            this.login = login.trim();
+    public void setLogin(String pLogin) {
+            this.login = AbstractDtoHandler.checkAndClean(pLogin);
     }
 
     public void setPassword(String password) {
