@@ -45,13 +45,7 @@ public class PersonEntity extends AbstractEntity {
     @Column(name = "token_exp_date")
     private LocalDate tokenExpDate;
 
-    public String getToken() {
-        return token;
-    }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
 
     public LocalDate getTokenExpDate() {
         return tokenExpDate;
@@ -79,13 +73,9 @@ public class PersonEntity extends AbstractEntity {
      *
      * @param pId un id
      */
-    public PersonEntity(Integer pId) {
-        super(pId);
-    }
+    public PersonEntity(Integer pId) {super(pId);}
 
-    public String getFirstName() {
-        return firstName;
-    }
+    public String getFirstName() {return firstName;}
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -153,6 +143,14 @@ public class PersonEntity extends AbstractEntity {
 
     public void setApiaries(Set<ApiaryEntity> apiaries) {
         this.apiaries = apiaries;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 }
