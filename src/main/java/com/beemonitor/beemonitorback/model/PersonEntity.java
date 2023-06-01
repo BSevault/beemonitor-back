@@ -39,22 +39,6 @@ public class PersonEntity extends AbstractEntity {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @Column(name = "token")
-    private String token;
-
-    @Column(name = "token_exp_date")
-    private LocalDate tokenExpDate;
-
-
-
-    public LocalDate getTokenExpDate() {
-        return tokenExpDate;
-    }
-
-    public void setTokenExpDate(LocalDate tokenExpDate) {
-        this.tokenExpDate = tokenExpDate;
-    }
-
     /**
      * Jointure avec la classe Apiary
      */
@@ -143,14 +127,6 @@ public class PersonEntity extends AbstractEntity {
 
     public void setApiaries(Set<ApiaryEntity> apiaries) {
         this.apiaries = apiaries;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
 }
