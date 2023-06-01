@@ -43,7 +43,7 @@ public class PersonController {
      * @param pBody the PersonDtoIn object to be mapped.
      * @return the mapped PersonDtoIn object.
      */
-    private PersonDtoIn personDTOMapper(@RequestBody PersonDtoIn pBody) {
+    private PersonDtoIn personDTOMapper(PersonDtoIn pBody) {
         var dto = new PersonDtoIn();
         dto.setFirstName(pBody.getFirstName());
         dto.setLastName(pBody.getLastName());
@@ -67,6 +67,7 @@ public class PersonController {
         PersonController.LOG.debug("--> getPerson");
         PersonEntity personEntity = personService.findById(pId);
         if (personEntity == null) {
+            PersonController.LOG.debug("No user found");
             PersonController.LOG.debug("<-- getPerson return null");
             return ResponseEntity.notFound().build();
         }
@@ -104,7 +105,7 @@ public class PersonController {
         var result = personService.insert(dto);
 
         if (result == null) {
-            LOG.debug("Bad request: Provided email already exists.");
+            LOG.debug("Provided email already exists.");
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
 

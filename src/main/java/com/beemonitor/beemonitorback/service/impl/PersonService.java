@@ -33,7 +33,7 @@ public class PersonService {
     /**
      * Gets a person by ID.
      * @param pId The ID of the person.
-     * @return The PersonEntity object of the person who matches the ID, or null if ID not found.
+     * @return The PersonEntity object of the person who matches the ID, or null if ID not found or inactive.
      */
     @Transactional(readOnly = true)
     public PersonEntity findById(final Integer pId) {
