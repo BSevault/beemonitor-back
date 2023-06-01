@@ -42,6 +42,7 @@ public class ApiaryEntity extends AbstractEntity {
      */
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
+
     private PersonEntity person;
 
     @OneToMany(mappedBy = "apiary", fetch = FetchType.LAZY)

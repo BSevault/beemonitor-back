@@ -10,13 +10,13 @@ import com.beemonitor.beemonitorback.dto.handler.PersonDtoHandler;
 import com.beemonitor.beemonitorback.dto.in.PersonDtoIn;
 import com.beemonitor.beemonitorback.dto.out.PersonDtoOut;
 import com.beemonitor.beemonitorback.model.PersonEntity;
-import com.beemonitor.beemonitorback.service.impl.AuthService;
 import com.beemonitor.beemonitorback.service.impl.PersonService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,13 +30,11 @@ public class PersonController {
 
     private final PersonService personService;
 
-    private final AuthService authService;
 
 
     @Autowired
-    public PersonController(PersonService personService, AuthService authService) {
+    public PersonController(PersonService personService) {
         this.personService = personService;
-        this.authService = authService;
     }
 
     /**
@@ -64,6 +62,7 @@ public class PersonController {
     // To return xml :
     // @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_XML_VALUE})
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #pId == authentication.details.id")
     public ResponseEntity<PersonDtoOut> getPerson(@PathVariable("id") final Integer pId) {
         PersonController.LOG.debug("--> getPerson");
         PersonEntity personEntity = personService.findById(pId);
@@ -83,6 +82,7 @@ public class PersonController {
      * @return An iterable object of person.
      */
     @GetMapping("/all")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<PersonDtoOut>> getPersons() {
         PersonController.LOG.debug("--> getPersons");
         List<PersonEntity> personEntityList = personService.findAll();
@@ -95,13 +95,19 @@ public class PersonController {
     /**
      * Adds a new person.
      * @param pBody The request body containing the information of the person to be added.
-     * @return A ResponseEntity containing the PersonDtoOut of the added person.
+     * @return A ResponseEntity containing the PersonDtoOut of the added person, if email already exists returns 422 status code "Unprocessable entity"
      */
     @PostMapping("/add")
     public ResponseEntity<PersonDtoOut> addPerson(@RequestBody PersonDtoIn pBody) {
         PersonController.LOG.debug("--> addPersons");
         var dto = personDTOMapper(pBody);
         var result = personService.insert(dto);
+
+        if (result == null) {
+            LOG.debug("Bad request: Provided email already exists.");
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        }
+
         PersonController.LOG.debug("result {}", result.toString());
         PersonController.LOG.debug("<-- addPersons");
         return ResponseEntity.ok(PersonDtoHandler.dtoFromEntity(result));
@@ -115,12 +121,10 @@ public class PersonController {
      * @return A ResponseEntity containing the updated PersonDtoOut of the person, or ResponseEntity.notFound() if the person does not exist.
      */
     @PatchMapping("/{id}/update")
-    public ResponseEntity<PersonDtoOut> updatePerson(@PathVariable("id") Integer pId, @RequestBody PersonDtoIn pBody, @CookieValue(value = "token", defaultValue = "cookieNotFound") String pCookie) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #pId == authentication.details.id")
+    public ResponseEntity<PersonDtoOut> updatePerson(@PathVariable("id") Integer pId, @RequestBody PersonDtoIn pBody) {
 
         PersonController.LOG.debug("--> updatePerson");
-
-        if(!authService.verifyToken(pId, pCookie))
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
         var dto = personDTOMapper(pBody);
         var result = personService.update(pId, dto);
@@ -140,6 +144,7 @@ public class PersonController {
      * @return  ResponseEntity containing the deleted PersonDtoOut of the person.
      */
     @DeleteMapping("/{id}/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #pId == authentication.details.id")
     public ResponseEntity<PersonDtoOut> deletePerson(@PathVariable("id") Integer pId) {
         PersonController.LOG.debug("--> deletePerson");
         var result = personService.delete(pId);

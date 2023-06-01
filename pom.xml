@@ -15,6 +15,8 @@
     <description>beemonitor-back</description>
     <properties>
         <java.version>17</java.version>
+        <version.spring.security.jwt>1.1.1.RELEASE</version.spring.security.jwt>
+        <version.io.jsonwebtoken>0.11.5</version.io.jsonwebtoken>
     </properties>
     <dependencies>
         <dependency>
@@ -36,6 +38,23 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${version.io.jsonwebtoken}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${version.io.jsonwebtoken}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
+            <version>${version.spring.security.jwt}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
