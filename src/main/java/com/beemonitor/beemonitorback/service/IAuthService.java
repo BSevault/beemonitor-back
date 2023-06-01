@@ -5,6 +5,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 
 public interface IAuthService extends AuthenticationProvider {
 
-public PersonEntity authent(String pEmail, String pPassword);
+PersonEntity authent(String pEmail, String pPassword);
 
 }

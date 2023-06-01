@@ -41,7 +41,6 @@ public class AuthService implements IAuthService {
     }
 
     //TODO gérer le code http si user inexistant ou désactivé => redirection
-    //TODO a passer en privée ou protected
     public PersonEntity authent(String pEmail, String pPassword) {
         var optEntity = personRepository.findByEmail(pEmail);
         if(optEntity.isEmpty() || !optEntity.get().isActive() )
@@ -50,8 +49,6 @@ public class AuthService implements IAuthService {
         var entity = optEntity.get();
 
         if(passwordEncoder.matches(pPassword, entity.getPwd())) {
-            // var token = generateToken(pEmail, pUserIpAdress);
-            // addTokenToLoggedUser(entity.getId(), token);
             return entity;
         }
 
