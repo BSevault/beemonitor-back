@@ -1,7 +1,7 @@
 package com.beemonitor.beemonitorback.dto.out;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-// TODO virer Lombok
+// uncomment to ignore null values on serialization
+// @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"id", "email", "firstName", "lastName", "adress", "phone", "apiariesId", "isActive", "isAdmin"})
 public class PersonDtoOut {
 
     private static final Logger LOG = LogManager.getLogger();
@@ -59,7 +61,7 @@ public class PersonDtoOut {
         if (pMap.get("id") != null)
             this.setId((Integer) pMap.get("id"));
 
-        this.setFirstName((String)pMap.get("fistName"));
+        this.setFirstName((String)pMap.get("firstName"));
 
         this.setLastName((String)pMap.get("lastName"));
 
@@ -77,17 +79,19 @@ public class PersonDtoOut {
         this.setApiariesId((List<Integer>)pMap.get("apiariesId"));
     }
 
-    public Integer getId() {
-        return id;
-    }
+    public Integer getId() {return id;}
 
     public void setId(Integer id) {
         this.id = id;
     }
 
+    public String getFirstName() {return firstName;}
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
+    public String getLastName() {return lastName;}
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -101,20 +105,36 @@ public class PersonDtoOut {
         this.email = email;
     }
 
+    public String getPhone() {return phone;}
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    public String getAdress() {return adress;}
+
     public void setAdress(String adress) {
         this.adress = adress;
+    }
+
+    public Boolean isAdmin() {
+        return isAdmin;
     }
 
     public void setIsAdmin(Boolean admin) {
         isAdmin = admin;
     }
 
+    public Boolean isActive() {
+        return isActive;
+    }
+
     public void setIsActive(Boolean active) {
         isActive = active;
+    }
+
+    public List<Integer> getApiariesId() {
+        return apiariesId;
     }
 
     public void setApiariesId(List<Integer> apiariesId) {
