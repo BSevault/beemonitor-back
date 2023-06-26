@@ -54,6 +54,11 @@ public class PersonController {
         return dto;
     }
 
+    @GetMapping("/")
+    public ResponseEntity<String> root() {
+        return ResponseEntity.ok("Welcome on BeeMonitor API. Everything is working fine.");
+    }
+
     /**
      * Gets a person by ID.
      * @param pId The id of the person.
