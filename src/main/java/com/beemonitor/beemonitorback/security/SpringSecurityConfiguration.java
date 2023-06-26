@@ -42,6 +42,7 @@ public class SpringSecurityConfiguration {
 
     @Autowired
     protected Environment env;
+
     @Autowired
     protected AuthenticationProvider customAuthenticationProvider;
 
@@ -98,8 +99,11 @@ public class SpringSecurityConfiguration {
         SpringSecurityConfiguration.LOG.debug("SpringSecurityConfigurationSecured - Apply rules");
 
         // Keep cors enable here, otherwise configuration of it is not applied
-        http.csrf().disable().cors();
-        http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/", // Root => URLs publiques
+        http
+                .csrf(csrf->csrf.disable())
+                .cors(cors->cors.disable());
+        http
+                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/", // Root => URLs publiques
                         "/favicon.ico*", //
                         "/csrf/**", //
                         "/v3/api-docs/**", // Swagger
@@ -111,14 +115,19 @@ public class SpringSecurityConfiguration {
                         "/webjars/**", //
                         "/forgotpassword", //
                         "/persons/add", //
-                        "license.txt").permitAll().anyRequest().authenticated()).headers().frameOptions().disable().and()
+                        "license.txt").permitAll().anyRequest().authenticated())
+                .headers(headers->headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.disable()))
                 .addFilterBefore(new JwtAuthenticationFilter(authenticationManager, this.env),
                         UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtAuthorizationFilter(authenticationManager, this.env),
                         UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().logout().clearAuthentication(true)
-                .logoutSuccessHandler((pRequest, pResponse, pAuthentication) -> pResponse.setStatus(200)).and()
-                .formLogin().disable().httpBasic().disable();
+                .sessionManagement(sessionManagement->sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .logout(logout-> {
+                    logout.clearAuthentication(true);
+                    logout.logoutSuccessHandler((pRequest, pResponse, pAuthentication) -> pResponse.setStatus(200));
+                })
+                .formLogin(formLogin->formLogin.disable())
+                .httpBasic(httpBasic->httpBasic.disable());
 
         return http.build();
     }
