@@ -103,7 +103,9 @@ public class SpringSecurityConfiguration {
                 .csrf(csrf->csrf.disable())
                 .cors(cors->cors.disable());
         http
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/", // Root => URLs publiques
+                .authorizeHttpRequests(authorize -> authorize.requestMatchers(
+                        // Root => URLs publiques
+                        "/api",
                         "/favicon.ico*", //
                         "/csrf/**", //
                         "/v3/api-docs/**", // Swagger

@@ -19,9 +19,18 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 // @RestController
+@RequestMapping("/api")
+@RestController
 public class AuthController {
 
     private static final Logger LOG = LogManager.getLogger();
+
+    @GetMapping
+    public ResponseEntity<String> root() {
+        LOG.debug("--> root");
+        LOG.debug("<-- root");
+        return ResponseEntity.ok("Welcome on BeeMonitor API. Everything is working fine.");
+    }
 
     // private final AuthService authService;
     //
