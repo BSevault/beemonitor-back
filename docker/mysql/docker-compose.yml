@@ -4,29 +4,70 @@
 # Password and network ports are handled in .env file
 #
 version: "3.9"
+name: beemonitor
 services:
-  mysqldb:
+  db_mysql:
+    hostname: db_mysql
+    container_name: db_mysql
     image: mysql:8.0.29
     restart: unless-stopped
     env_file: ./.env
-    container_name: mysql_db_beemonitor
     environment:
+      - TZ=$TIMEZONE
       - MYSQL_ROOT_PASSWORD=$DB_ROOT_PASSWORD
       - MYSQL_DATABASE=$DB_DATABASE
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-    # ports:
-    #   - $DB_LOCAL_PORT:$DB_DOCKER_PORT
+      - MYSQL_USER=$DB_USER
+      - MYSQL_PASSWORD=$DB_USER_PASSWORD
+    ports:
+      - $DB_LOCAL_PORT:$DB_DOCKER_PORT
     volumes:
       # !Keep order of declaration, will init the database with the dump at img creation
-      - vol_mysql_beemonitor:/var/lib/mysql
+      - volume_mysql:/var/lib/mysql
       - ../../database/mysql/v0.2/schema_beemonitor_v0.2.sql:/docker-entrypoint-initdb.d/a_setup.sql
       - ../../database/mysql/v0.2/beemonitor_v0.2_dummy_data.sql:/docker-entrypoint-initdb.d/b_data.sql
 
-  app:
-    image:
+  api:
+    hostname: api
+    container_name: api
+    depends_on:
+      - db_mysql
+    build: ../..
+    restart: on-failure
+    ports:
+      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+    environment:
+      TZ: $TIMEZONE
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url" : "jdbc:mysql://mysql_db_beemonitor:$DB_DOCKER_PORT/$DB_DATABASE?allowPublicKeyRetrieval=true&useSSL=false",
+        "spring.datasource.username" : "$DB_USER",
+        "spring.datasource.password" : "$DB_USER_PASSWORD",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQLDialect",
+        "spring.jpa.hibernate.ddl-auto" : "none"
+      }'
+    volumes:
+      - volume_api:/root/.m2
+    stdin_open: true
+    tty: true
+
+  cloudbeaver:
+    hostname: cloudbeaver
+    container_name: cloudbeaver
+    image: dbeaver/cloudbeaver:latest
+    restart: unless-stopped
+#    environment:
+#      - TZ=$TIMEZONE
+#      - CB_ADMIN_NAME=$CB_ADMIN_NAME
+#      - CB_ADMIN_PASSWORD=$CB_ADMIN_PASSWORD
+    ports:
+      - "8080:8978"
+    volumes:
+      - volume_cloudbeaver:/opt/cloudbeaver/workspace
 
 volumes:
-  vol_mysql_beemonitor:
+  volume_mysql:
+  volume_api:
+  volume_cloudbeaver:
 
 
 #
