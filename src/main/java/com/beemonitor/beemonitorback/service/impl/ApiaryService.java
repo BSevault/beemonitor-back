@@ -14,6 +14,7 @@ public class ApiaryService {
     // @Autowired
     private final ApiaryRepository apiaryRepository;
 
+
     @Autowired
     public ApiaryService(ApiaryRepository apiaryRepository) {
         this.apiaryRepository = apiaryRepository;
