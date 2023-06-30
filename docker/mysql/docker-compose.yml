@@ -33,7 +33,8 @@ services:
     depends_on:
       - db_mysql
     build: ../..
-    restart: on-failure
+    restart: unless-stopped
+    env_file: ./.env
     ports:
       - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
     environment:
@@ -55,12 +56,11 @@ services:
     container_name: cloudbeaver
     image: dbeaver/cloudbeaver:latest
     restart: unless-stopped
-#    environment:
-#      - TZ=$TIMEZONE
-#      - CB_ADMIN_NAME=$CB_ADMIN_NAME
-#      - CB_ADMIN_PASSWORD=$CB_ADMIN_PASSWORD
+    env_file: ./.env
+    environment:
+      - TZ=$TIMEZONE
     ports:
-      - "8080:8978"
+      - $CB_LOCAL_PORT:$CB_DOCKER_PORT
     volumes:
       - volume_cloudbeaver:/opt/cloudbeaver/workspace
 
