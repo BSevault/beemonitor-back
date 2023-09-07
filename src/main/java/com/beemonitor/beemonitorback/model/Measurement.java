@@ -21,7 +21,7 @@ public class Measurement {
     @Column(name = "id", columnDefinition = "INT UNSIGNED not null")
     private Long id;
 
-    @Column(name = "value", nullable = false, precision = 7, scale = 4)
+    @Column(name = "value", nullable = true, precision = 7, scale = 4)
     private BigDecimal value;
 
     @Column(name = "measurement_date", nullable = false)

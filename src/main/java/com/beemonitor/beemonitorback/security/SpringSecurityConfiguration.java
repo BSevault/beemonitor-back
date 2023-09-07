@@ -7,9 +7,11 @@ import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -101,11 +103,14 @@ public class SpringSecurityConfiguration {
         // Keep cors enable here, otherwise configuration of it is not applied
         http
                 .csrf(csrf->csrf.disable())
-                .cors(cors->cors.disable());
+                .cors(cors->corsConfigurationSource());
+
         http
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(
                         // Root => URLs publiques
                         "/api",
+                        "/h2/**",
+                        "/h2",
                         "/favicon.ico*", //
                         "/csrf/**", //
                         "/v3/api-docs/**", // Swagger
@@ -133,6 +138,5 @@ public class SpringSecurityConfiguration {
 
         return http.build();
     }
-
 
 }

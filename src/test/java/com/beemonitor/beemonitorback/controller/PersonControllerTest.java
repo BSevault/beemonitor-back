@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -31,11 +34,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//TODO mettre en place une DB H2 pour tests scenarios d'authentification
+//TODO mettre en place une DB H2 pour tester scenarios d'authentification
+// @ActiveProfiles("test")
 @Import(PersonController.class)
 @WebMvcTest(PersonController.class)
 @WithMockUser(username = "admin", roles = {"ADMIN", "USER"})
 @ContextConfiguration(classes = {PersonService.class, PersonControllerTest.TestConfig.class})
+// @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+// @AutoConfigureMockMvc
 class PersonControllerTest {
 
     @TestConfiguration
@@ -86,6 +92,8 @@ class PersonControllerTest {
         // Arrange
         PersonEntity expectedEntity = expectedEntity();
         when(mockRepository.findById(11)).thenReturn(Optional.of(expectedEntity));
+
+        // System.in.read();
 
         // Act
         mockMvc.perform(get("/persons/{id}", 11))
